@@ -4,7 +4,7 @@
 
 # required packages
 from gpiozero import LED
-import time from sleep
+from time import sleep
 
 # BCM numbering
 led = LED(18)
