@@ -1,7 +1,6 @@
 #!/usr/local/bin/python
 
 # blink, forever
-# gpiozero version
 
 # required packages
 from gpiozero import LED
