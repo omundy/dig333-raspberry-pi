@@ -13,12 +13,6 @@ led = PWMLED(18)
 brightness = 0
 change = 1
 
-while True:
-	brightness_s = input("Enter Brightness (0.0 to 1.0):")
-	brightness = float ( brightness_s ) led . value = brightness
-
-
-
 def fade():
 
 	# update the change value
