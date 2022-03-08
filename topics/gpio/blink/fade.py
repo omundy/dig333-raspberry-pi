@@ -18,7 +18,7 @@ def fade():
 	# update the change value
 	if brightness <= 0:
 		change = 0.1
-	else if brightness >= 1
+	else if brightness >= 1:
 		change = -0.1
 
 	# update brightness
