@@ -21,7 +21,6 @@ def blink():
 	led.off()
 	sleep(1.0) # wait
 
-
 try:
 	# main loop
 	while True:
