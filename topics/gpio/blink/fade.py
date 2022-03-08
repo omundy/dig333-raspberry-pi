@@ -14,9 +14,13 @@ brightness = 0
 change = 1
 
 def fade():
+	# to ref global vars
 	global brightness, change
 
-	# update the change value
+	# update brightness change
+	brightness += change
+
+	# update the change value, reset brightness
 	if brightness <= 0:
 		change = 0.1
 		brightness = 0
@@ -24,8 +28,6 @@ def fade():
 		change = -0.1
 		brightness = 1
 
-	# update brightness
-	brightness += change
 	print(brightness)
 
 	# set value
