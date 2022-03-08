@@ -1,6 +1,7 @@
 #!/usr/local/bin/python
 
 # blink, forever
+# gpiozero version
 
 # required packages
 from gpiozero import LED
@@ -9,7 +10,8 @@ import time import sleep
 # BCM numbering
 led = LED(18)
 
-while True:
+def blink(pin):
+
 	# turn the LED on
 	print("ON")
 	led.on()
@@ -19,3 +21,13 @@ while True:
 	print("OFF")
 	led.off()
 	sleep(1.0) # wait
+
+
+try:
+	# main loop
+	while True:
+		blink(pin)
+except KeyboardInterrupt:
+	pass # catch when script is interrupted
+finally:
+	print("DONE")
