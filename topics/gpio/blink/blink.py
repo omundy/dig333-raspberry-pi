@@ -10,7 +10,7 @@ from time import sleep
 # BCM numbering
 led = LED(18)
 
-def blink(pin):
+def blink():
 
 	# turn the LED on
 	print("ON")
@@ -26,7 +26,7 @@ def blink(pin):
 try:
 	# main loop
 	while True:
-		blink(pin)
+		blink()
 except KeyboardInterrupt:
 	pass # catch when script is interrupted
 finally:
