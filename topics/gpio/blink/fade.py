@@ -15,12 +15,14 @@ change = 1
 
 def fade():
 	global brightness, change
-	
+
 	# update the change value
 	if brightness <= 0:
 		change = 0.1
+		brightness = 0
 	elif brightness >= 1:
 		change = -0.1
+		brightness = 1
 
 	# update brightness
 	brightness += change
