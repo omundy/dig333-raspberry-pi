@@ -24,7 +24,7 @@ def record(filename):
                     rate=RATE, input=True,
                     frames_per_buffer=CHUNK)
 
-    print ("recording...")
+    print("recording...")
 
     frames = []
 
@@ -32,7 +32,7 @@ def record(filename):
         data = stream.read(CHUNK)
         frames.append(data)
 
-    print ("finished recording")
+    print("finished recording")
 
     # stop the stream, close it, and terminate the pyaudio instantiation
     stream.stop_stream()

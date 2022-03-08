@@ -14,20 +14,20 @@ GPIO.setmode(GPIO.BOARD)
 # define the pin to read
 pin = 7
 
-# function 
+# function
 def read_sensor (pin):
     count = 0
-  
+
     # set pin as output
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, GPIO.LOW)
 
-    # wait  
+    # wait
     time.sleep(0.1)
 
     # change pin back to input
     GPIO.setup(pin, GPIO.IN)
-  
+
     # count until the pin goes high
     while (GPIO.input(pin) == GPIO.LOW):
         count += 1
@@ -37,11 +37,10 @@ def read_sensor (pin):
 try:
     # main loop
     while True:
-        print read_sensor(pin)
+        print(read_sensor(pin))
 except KeyboardInterrupt:
     # when script is interrupted
     pass
 finally:
     # reset used ports back to input mode
     GPIO.cleanup()
-

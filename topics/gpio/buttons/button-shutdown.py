@@ -13,7 +13,7 @@ pin = 40
 timer = 0
 timeToShutdown = 5
 
-# set pin as input, use optional 
+# set pin as input, use optional
 GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def button(pin):
@@ -27,20 +27,18 @@ def button(pin):
 			timer = 0
 			os.system("sudo shutdown -h now")
 			return "SHUTTING DOWN NOW"
-		else:	
+		else:
 			return timer
-	else: 
+	else:
 		# reset timer
 		timer = 0
 		return timer
 
 try:
 	while True:		# main loop
-		print button(pin)	# print status of button
+		print(button(pin))	# print status of button
 		time.sleep(.5)		# pause between loops
 except KeyboardInterrupt:
 	pass			# when script is interrupted
 finally:
 	GPIO.cleanup() 	# reset used ports back to input mode
-
-

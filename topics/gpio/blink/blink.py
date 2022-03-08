@@ -17,14 +17,14 @@ GPIO.setup(pin, GPIO.OUT)
 def blink(pin):
 
 	# turn the LED on
-	print "ON"
+	print("ON")
 	GPIO.output(pin,True)
 
 	# wait
 	time.sleep(1.0)
 
 	# turn the LED off
-	print "OFF"
+	print("OFF")
 	GPIO.output(pin,False)
 
 	# wait

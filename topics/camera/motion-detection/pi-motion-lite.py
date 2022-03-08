@@ -46,7 +46,7 @@ def showTime():
 def showMessage(functionName, messageStr):
     if verbose:
         now = showTime()
-        print ("%s %s - %s " % (now, functionName, messageStr))
+        print("%s %s - %s " % (now, functionName, messageStr))
     return
 
 #-----------------------------------------------------------------------------------------------
@@ -118,5 +118,3 @@ if __name__ == '__main__':
         print("  Exiting Program")
         print("+++++++++++++++++++")
         print("")
-
-            
