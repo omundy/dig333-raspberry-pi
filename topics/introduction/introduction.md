@@ -36,6 +36,38 @@ Students who complete this module will be able to:
 
 
 
+## Basics bash commands
+
+
+```bash
+# list files in current directory
+ls -la
+# clear the bash commands
+clear
+# put working directory
+pwd
+# display current user
+whoami
+# display history of commands
+history
+# exit current session (logout)
+exit
+```
+
+
+## Basics Raspberry Pi commands
+
+```bash
+# run raspberry pi configuration tool
+sudo raspi-config
+# shudown the RPi
+sudo shutdown -h now
+# restart the pi
+sudo reboot
+
+```
+
+
 
 
 
