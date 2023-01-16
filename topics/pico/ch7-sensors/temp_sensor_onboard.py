@@ -1,6 +1,5 @@
 # Source: Electrocredible.com, Language: MicroPython
 # https://electrocredible.com/raspberry-pi-pico-temperature-sensor-tutorial/
-
 from machine import ADC
 import time
 adc = machine.ADC(4)
