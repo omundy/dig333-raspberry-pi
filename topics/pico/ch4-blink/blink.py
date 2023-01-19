@@ -3,6 +3,7 @@
 import machine
 import utime
 # set onboard LED (pin 25) as OUT
+# use "LED" with quotes instead of 25 on Pico W
 led_pin = machine.Pin(25, machine.Pin.OUT)
 
 while (True):
