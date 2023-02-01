@@ -1,5 +1,5 @@
 
-    
+# PWM pulse "up" example
 # https://microcontrollerslab.com/raspberry-pi-pico-pwm-micropython-tutorial/
 # https://randomnerdtutorials.com/esp32-esp8266-pwm-micropython/
 
