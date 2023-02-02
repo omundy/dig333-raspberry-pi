@@ -11,8 +11,8 @@ led.freq(5000)
 
 while True:
   for duty_cycle in range(0, 2048):
-    led.duty_u16(duty_cycle)
     print(duty_cycle)
+    led.duty_u16(duty_cycle)
     sleep(0.001)
     
 
