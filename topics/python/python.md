@@ -5,6 +5,76 @@
 # Python
 
 
+## Install Thonny
+
+Thonny for Pico
+```
+brew install thonny
+```
+
+
+
+## Install Python
+
+
+How to [Install Python with UV](https://mac.install.guide/python/install-uv) on Mac. UV for Python version, environment, and package management. UV, an extremely fast all-in-one tool for Python development.
+
+1. Check for [Xcode dev environment ](https://mac.install.guide/commandlinetools/2)
+```
+xcode-select -p
+```
+
+2. Install UV with [Homebrew](https://brew.sh/)
+```
+brew install uv
+```
+
+3. Set the `$PATH` for UV, and the close (VS Code trash can) and open a new shell
+```
+uv tool update-shell
+```
+
+4. Verify UV installation
+```
+uv --version
+# uv 0.8.0 (Homebrew 2025-07-17)
+```
+
+5. Install Python with UV
+```
+uv python install --preview
+```
+
+6. Verify Python installation
+```
+uv python find
+```
+
+## Python UV to manage project
+
+```
+# Create a new project
+uv init dig333-raspberri-pi
+
+# Add dependencies
+$ uv add requests
+
+# Sync dependencies with the environment
+$ uv sync
+
+# Lock dependencies
+$ uv lock
+
+# Run commands in the project environment
+$ uv run python script.py
+
+```
+
+
+
+
+
+
 
 
 
