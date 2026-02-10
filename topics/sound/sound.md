@@ -12,6 +12,20 @@ Your Raspberry Pi can either send sound to the screen’s built-in speakers thro
 
 
 
+## Synthesizers
+
+See `sound-experiments` repo (not yet public)
+
+
+
+### Javascript 
+
+Tone.js and Strudel
+https://omundy.github.io/dig345-radical-software/tutorials/sound-music/ 
+https://codepen.io/owenmundy/pen/raLoOro?editors=0010
+
+
+
 
 
 ## Pulseaudio
@@ -20,8 +34,6 @@ As of Dec 2020 Raspbian switched to Pulseaudio as the default audio interface
 https://en.wikibooks.org/wiki/Configuring_Sound_on_Linux
 https://www.raspberrypi.com/news/new-raspberry-pi-os-release-december-2020/
 https://wiretuts.com/connecting-bluetooth-audio-device-to-raspberry-pi
-
-
 
 
 
