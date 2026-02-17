@@ -6,9 +6,18 @@
     "python.languageServer": "Pylance",
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.extraPaths": [
-		"~/.micropico-stubs/included"
-	],
+        "/Users/owmundy/.vscode/extensions/joedevivo.vscode-circuitpython-0.2.0-darwin-arm64/boards/0x239A/0x8120",
+        "/Users/owmundy/.vscode/extensions/joedevivo.vscode-circuitpython-0.2.0-darwin-arm64/stubs",
+        "/Users/owmundy/Library/Application Support/Code/User/globalStorage/joedevivo.vscode-circuitpython/bundle/20260214/adafruit-circuitpython-bundle-py-20260214/lib"
+    ],
     "picowgo.syncFolder": "",
 	"picowgo.openOnStart": true,
-	"liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingModuleSource": "none",
+        "reportShadowedImports": "none"
+    },
+    "circuitpython.board.version": null,
+    "circuitpython.board.vid": "0x239A",
+    "circuitpython.board.pid": "0x8120"
 }
