@@ -1,145 +1,314 @@
-← [Raspberry Pi](../../README.md)
+# Python on Mac — Quick Reference
 
-<a href="../../README.md"><img width="150" src="../../assets/img/RPi-Logo-Reg-SCREEN.webp"></a>
+A recipe-style guide for setting up and using Python on macOS. Each section stands alone — jump to what you need.
 
-# Python
+---
 
+## Table of Contents
 
-## Install Thonny
+1. [Install Homebrew](#1-install-homebrew)
+2. [Install Python via Homebrew](#2-install-python-via-homebrew)
+3. [Install uv (package & environment manager)](#3-install-uv)
+4. [Check your PATH](#4-check-your-path)
+5. [Start a new project](#5-start-a-new-project)
+6. [Create a virtual environment](#6-create-a-virtual-environment)
+7. [Install packages](#7-install-packages)
+8. [Run your code](#8-run-your-code)
+9. [Freeze and share dependencies](#9-freeze-and-share-dependencies)
+10. [Pick up an existing project](#10-pick-up-an-existing-project)
+11. [Manage Python versions](#11-manage-python-versions)
+12. [Troubleshooting](#12-troubleshooting)
 
-Thonny for Pico
+---
+
+## 1. Install Homebrew
+
+Homebrew is the standard package manager for macOS. You need it to install Python and other tools cleanly.
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-brew install thonny
+
+Verify it worked:
+
+```bash
+brew --version
 ```
 
+> **Note for Apple Silicon Macs (M1/M2/M3):** Homebrew installs to `/opt/homebrew/`. On older Intel Macs it uses `/usr/local/`. Either way, the commands are the same.
 
+---
 
-## Install Python
+## 2. Install Python via Homebrew
 
+macOS ships with its own Python, but you should never use or modify it. Install your own clean copy:
 
-How to [Install Python with UV](https://mac.install.guide/python/install-uv) on Mac. UV for Python version, environment, and package management. UV, an extremely fast all-in-one tool for Python development.
-
-1. Check for [Xcode dev environment ](https://mac.install.guide/commandlinetools/2)
+```bash
+brew install python
 ```
-xcode-select -p
+
+Verify:
+
+```bash
+python3 --version
 ```
 
-2. Install UV with [Homebrew](https://brew.sh/)
-```
+> **Why not the python.org installer?** Homebrew integrates better with other tools, keeps Python updatable with `brew upgrade`, and won't interfere with system files.
+
+---
+
+## 3. Install uv
+
+`uv` is a modern tool that replaces both `pip` and `virtualenv`. It's dramatically faster and handles package installs, virtual environments, and Python version management all in one.
+
+```bash
 brew install uv
 ```
 
-3. Set the `$PATH` for UV, and the close (VS Code trash can) and open a new shell
-```
-uv tool update-shell
-```
-
-4. Verify UV installation
-```
-uv --version
-# uv 0.8.0 (Homebrew 2025-07-17)
-```
-
-5. Install Python with UV
-```
-uv python install --preview
-```
-
-6. Verify Python installation
-```
-uv python find
-```
-
-## Python UV to manage project
-
-```
-# Create a new project
-uv init dig333-raspberri-pi
-
-# Add dependencies
-$ uv add requests
-
-# Sync dependencies with the environment
-$ uv sync
-
-# Lock dependencies
-$ uv lock
-
-# Run commands in the project environment
-$ uv run python script.py
-
-```
-
-
-
-
-
-
-
-
-
-## Python + Command Line
-
-At the prompt, just type `python3` to enter the interpreter. Then type commands and enter to run them
-
-```python
->>> sum = 1+1
->>> print(sum)
->>> # -> 2
-```
-
-To exit, just type `exit()`
-
-
-Or, run a file from the command line:
+Verify:
 
 ```bash
-python file.py
+uv --version
 ```
 
+---
 
+## 4. Check your PATH
 
+Your shell needs to find Homebrew's tools before anything else. Open `~/.zshrc` in any text editor and make sure this line is present (add it at the top if it's missing):
 
-## Modularity
-
-
-Anytime you find yourself rewriting the same code consider using a function to make it reusable:
-
-```python
-# define the function
-def say_hello():
-	return "hello world!"
-# print the data return from the function
-print(say_hello())
-# -> hello world!
+```bash
+export PATH="/opt/homebrew/bin:$PATH"
 ```
 
-Functions can provide different results depending on parameters:
+Then reload your shell:
 
-```python
-def odd_even(num):
-	if (num % 2) == 0:
-		return "The number is even"
-	else:
-		return "The number is odd"
-
-print(odd_even(2000))
-# -> "The number is even"
-print(odd_even(79))
-# -> "The number is odd"
+```bash
+source ~/.zshrc
 ```
 
+Confirm Python resolves correctly:
 
-Consider also storing functions in separate files to keep your code clean:
-
-```python
-# functions.py
-# contains the above two functions
-
-# main.py
-import functions as f
-print(f.say_hello())
-print(f.odd_even(201))
-# -> hello world!
-# -> "The number is odd"
+```bash
+which python3   # should show /opt/homebrew/bin/python3
+which uv        # should show /opt/homebrew/bin/uv
 ```
+
+> **Tip:** If `python` (without the `3`) still points somewhere unexpected, add this alias to `~/.zshrc`:
+> ```bash
+> alias python=python3
+> ```
+
+---
+
+## 5. Start a New Project
+
+The cleanest way to start is with `uv init`, which creates a project folder with a virtual environment and a `pyproject.toml` (the modern way to track dependencies).
+
+```bash
+uv init my-project
+cd my-project
+```
+
+This creates:
+
+```
+my-project/
+├── .venv/          ← your virtual environment (don't edit this manually)
+├── pyproject.toml  ← your project metadata and dependencies
+├── README.md
+└── hello.py
+```
+
+> **Already have a folder?** Just run `uv init` from inside it.
+
+---
+
+## 6. Create a Virtual Environment
+
+A virtual environment is an isolated copy of Python for your project, so packages installed here don't affect other projects.
+
+> **If you used `uv init`, you already have one.** `uv init` creates the `.venv/` folder automatically — you don't need to run `uv venv` separately. This section only applies if you're setting up a venv in a folder that wasn't created with `uv init`.
+
+```bash
+# Only needed if you did NOT use uv init:
+uv venv
+```
+
+To activate the venv manually (optional with `uv` commands, but required if you want to run `python` directly):
+
+```bash
+source .venv/bin/activate
+```
+
+Your prompt will change to show `(.venv)` when it's active. To deactivate:
+
+```bash
+deactivate
+```
+
+> **Why bother?** Without a venv, every project shares the same packages. When project A needs `requests==2.28` and project B needs `requests==2.31`, things break. Venvs keep them separate.
+
+> **Add `.venv/` to your `.gitignore`** — never commit the environment itself, only the file that describes it (`pyproject.toml` or `requirements.txt`).
+
+---
+
+## 7. Install Packages
+
+```bash
+# Install one or more packages
+uv add requests pandas numpy
+
+# Install a specific version
+uv add "flask==3.0.0"
+
+# Remove a package
+uv remove requests
+```
+
+`uv add` automatically updates `pyproject.toml` so your dependencies are tracked.
+
+**Using a `requirements.txt` instead?**
+
+```bash
+uv pip install -r requirements.txt
+```
+
+---
+
+## 8. Run Your Code
+
+```bash
+# Recommended: uv run handles the venv automatically
+uv run python my_script.py
+
+# Or activate the venv first, then run normally
+source .venv/bin/activate
+python my_script.py
+```
+
+> **`uv run` is convenient** because it works even if you haven't manually activated the venv.
+
+---
+
+## 9. Freeze and Share Dependencies
+
+When sharing your project with others (or your future self), you need a way to recreate the same environment.
+
+**With `pyproject.toml` (recommended, created by `uv init`):**
+
+Your dependencies are already tracked automatically. The other person just runs:
+
+```bash
+uv sync
+```
+
+**With `requirements.txt` (classic approach):**
+
+```bash
+# Save your current packages to a file
+pip freeze > requirements.txt
+
+# Someone else installs from it
+uv pip install -r requirements.txt
+```
+
+---
+
+## 10. Pick Up an Existing Project
+
+When you clone or download a project someone else made:
+
+```bash
+cd their-project
+
+# If it has a pyproject.toml (uv project):
+uv sync
+
+# If it has a requirements.txt:
+uv venv
+uv pip install -r requirements.txt
+```
+
+Then run as normal:
+
+```bash
+uv run python main.py
+```
+
+---
+
+## 11. Manage Python Versions
+
+Need a specific Python version for a project? `uv` handles that too — no need for `pyenv`.
+
+```bash
+# Install a specific Python version
+uv python install 3.11
+
+# Create a venv using that version
+uv venv --python 3.11
+
+# Check which versions are available locally
+uv python list
+```
+
+---
+
+## 12. Troubleshooting
+
+**`python` points to the wrong place**
+
+```bash
+which python        # see what's being used
+which python3
+```
+
+Fix: make sure `/opt/homebrew/bin` is first in your PATH (see [Section 4](#4-check-your-path)).
+
+---
+
+**`pip` not found**
+
+Use `pip3` instead, or better yet, switch to `uv add` / `uv pip install` — they work without needing to activate a venv first.
+
+---
+
+**`command not found: uv`**
+
+Either `uv` isn't installed or Homebrew's bin isn't in your PATH.
+
+```bash
+brew install uv
+source ~/.zshrc
+```
+
+---
+
+**Packages installed but Python can't find them**
+
+You probably installed them outside your venv. Make sure you either:
+- Ran `uv add` from inside the project folder, or
+- Activated the venv with `source .venv/bin/activate` before using `pip install`
+
+---
+
+**Never do these things**
+
+| ❌ Don't | ✅ Do instead |
+|---|---|
+| `sudo pip install ...` | `uv add ...` inside a venv |
+| Install packages globally | Create a venv per project |
+| Edit files inside `.venv/` | Reinstall the package |
+| Commit `.venv/` to git | Add `.venv/` to `.gitignore` |
+
+---
+
+*Generated for macOS (Apple Silicon). Last updated April 2026.*
+
+
+
+
+
+
+https://marketplace.visualstudio.com/items?itemName=emeraldwalk.RunOnSave 
