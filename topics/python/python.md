@@ -18,6 +18,7 @@ A recipe-style guide for setting up and using Python on macOS. Each section stan
 10. [Pick up an existing project](#10-pick-up-an-existing-project)
 11. [Manage Python versions](#11-manage-python-versions)
 12. [Troubleshooting](#12-troubleshooting)
+13. [Run Python on Save in VS Code](#13-run-python-on-save-in-vs-code)
 
 ---
 
@@ -304,11 +305,51 @@ You probably installed them outside your venv. Make sure you either:
 
 ---
 
+## 13. Run Python on Save in VS Code
+
+VS Code can automatically run your Python file every time you press `Cmd+S`, using a built-in Task bound to a keyboard shortcut.
+
+### Step 1 — Create a task
+
+Inside your project folder, create `.vscode/tasks.json` (make the `.vscode/` folder if it doesn't exist):
+
+```json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Python on Save",
+            "type": "shell",
+            "command": "uv run python ${file}",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        }
+    ]
+}
+```
+
+> **Not using uv?** Replace the `command` with `python3 ${file}` instead.
+
+### Step 2 — Bind it to Cmd+S
+
+Open your keyboard shortcuts file (`Cmd+Shift+P` → "Open Keyboard Shortcuts JSON") and add:
+
+```json
+{
+    "key": "cmd+s",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Run Python on Save"
+}
+```
+
+Now every `Cmd+S` saves the file **and** runs it. Output appears in the integrated terminal (`Cmd+J`). The `"clear": true` setting wipes previous output so you always see a clean result.
+
+> **Note:** This task is per-project (lives in `.vscode/tasks.json`), but the keybinding is global (lives in your user settings). Add `.vscode/` to `.gitignore` if you don't want to commit it.
+
+---
+
 *Generated for macOS (Apple Silicon). Last updated April 2026.*
-
-
-
-
-
-
-https://marketplace.visualstudio.com/items?itemName=emeraldwalk.RunOnSave 
